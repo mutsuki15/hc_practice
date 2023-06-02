@@ -6,7 +6,7 @@
     width: 100%;
 }
 
-header {
+.header_items {
     display: flex;
     justify-content: space-between;
     padding-top: 15px;
@@ -253,7 +253,7 @@ section .fa-heart::before {
     padding: 10px 0 0 5px; 
 }
 
-article {
+.article_area{
     padding: 0 18px;
 }
 
@@ -579,7 +579,6 @@ details .introduction {
 .article_author {
     display: flex;
     padding: 40px 0;
-    border-bottom: 1px solid #E4EDF3;
 }
 
 .article_author img {
@@ -879,7 +878,7 @@ details .introduction {
 }
 
 footer {
-    margin: 45px 18px 30px 18px;    
+    padding: 45px 18px 30px 18px;    
  }
 
 footer .zenn_footer {
@@ -957,7 +956,7 @@ footer .classmethod img {
 @media screen and (min-width: 600px) {
 
 header {
-    margin: 0 15px 1px 15px;
+    padding: 0 0 1px 5px;
 }
 
 .Log_in_button {
@@ -980,7 +979,7 @@ article {
 .article_area {
     background-color: #fff;
     border-radius: 10px;
-    margin: 0 25px;
+    margin: 0 40px;
     padding: 0 20px;
 }
 
@@ -1011,7 +1010,7 @@ article {
 @media screen and (min-width: 780px) {
 
 header {
-    margin: 0 30px 1px 30px;
+    padding: 0 15px 1px 20px;
 }
 
 section {
@@ -1022,10 +1021,6 @@ section {
     font-size: 30px;
 }
 
-.article_area {
-    margin: 0 40px;
-    padding: 0 40px;
-}
 
 .discussion_area {
     padding: 10px 0;
@@ -1084,8 +1079,18 @@ footer .footer_menu {
 /*PCサイズ(small)の設定*/
 @media screen and (min-width: 1000px) {
 
+.container {
+    background-color: #EDF2F6;
+}
+
 header {
-    margin: 0 30px 1px 30px;
+    width: 100%;
+    background-color: #fff;
+}
+
+.header_items {
+    max-width: 1100px;
+    margin: 0 auto;
 }
 
 .title p {
@@ -1098,15 +1103,18 @@ section {
 
 .main {
     display: grid;
-    grid-template-columns: 3fr 1fr; 
+    grid-template-columns: 2fr 1fr; 
     grid-template-rows: 1fr;
-    background-color: #EDF2F6;    
+    background-color: #EDF2F6;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .article_author img {
     width: 80px;
     height: 80px;     
 }
+
 
 .article_area {
     grid-column: 1;
@@ -1123,13 +1131,13 @@ section {
 .right_aside{
     display: flex;
     flex-direction: column;
-    margin-right: 20px;
+    width: 320px;
 }
 
 .right_aside {
     grid-column: 2;
-    grid-row: 1;
-    margin-right: 30px;    
+    grid-row: 1;  
+    
 }
 
 .right_aside .article_info {
@@ -1140,9 +1148,7 @@ section {
 }
 
 
-.right_aside .article_info, .index_info {
-    width: 280px;       
-}
+
 
 .right_aside .author_info_item {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -1320,7 +1326,6 @@ section {
 }    
 
 .right_aside .zenn_info {
-    width: 320px;
     padding: 20px 0;
 }
 
@@ -1436,54 +1441,61 @@ section {
 .footer_container {
     display: flex;
     justify-content: center;
+    gap: 70px;
 }
 
-.zenn_footer_layout {
-    margin-right: 80px;
+footer {
+    background-color: #fff;
+    width: 100%;
 }
 
 footer .footer_menu {
-    gap:60px;
-}
-    
-.about {
-    grid-column: 1;       
-}
-
-.guides {
-    grid-column: 2;
-}
-
-.links {
-    grid-column: 3;
-}
-
-.legal {
-    grid-column: 4;
-}
-
+    gap: 60px;
+} 
+  
 .read_next {
-    padding: 10px 120px 80px 120px;  
-}
+    padding: 10px 110px 80px 110px; 
+    max-width: 880px;
+    margin: auto;
     
+}
+
+.next_articles {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(5, 1fr);
+    gap: 0 40px;
+}
+
+footer {
+    background-color: #fff;
+    padding: 50px 0 30px 0;
+    
+}
+
 footer .border{
-    margin: 0 200px;
+    margin: 0 50px;
 }
 }
 
 /*PCサイズ(large)の設定*/
 @media screen and (min-width: 1300px) {
 
+.header_items {
+    padding: 15px 25px 1px 50px;
+}
+
 .main {
-    grid-template-columns: 1fr 4fr 2fr; 
+    grid-template-columns: 0.5fr 7fr 3fr; 
     grid-template-rows: 1fr;
     background-color: #EDF2F6;
+    max-width: 1300px;
+    margin: 0 auto;
 }
 
 .left_aside {
-    display: flex;
+    display: block;
     grid-column: 1;
-    padding-left: 20px;
 }
 
 .left_aside .iine a{
@@ -1545,8 +1557,7 @@ footer .border{
     grid-column: 2;
     background-color: #fff;
     border-radius: 10px;
-    padding: 0 40px;
-    min-width: 750px;
+    min-width: auto;
 }
 
 .discussion_area {
@@ -1557,5 +1568,11 @@ footer .border{
 .right_aside {
     grid-column: 3;
     grid-row: 1;
+    
+}
+
+.read_next {
+    width: 900px;
+    padding: 10px 280px 80px 280px;  
 }
 }
