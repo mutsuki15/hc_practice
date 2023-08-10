@@ -8,22 +8,19 @@ class VendingMachine
 
   def initialize
     @sales = 0
-    @drinks_stock = { pepsi: 5, monster: 5, irohasu: 5 }
+    @drinks_stock = {}
   end
 
   def set_suica(suica)
     @suica = suica
   end
 
+  def default_drink_stock
+    @drinks_stock ={ pepsi: 5, monster: 5, irohasu: 5 }
+  end
+
   def add_drink(drink)
-    case drink.name
-    when 'ペプシ'
-      @drinks_stock[:pepsi] += 1
-    when 'モンスター'
-      @drinks_stock[:monster] += 1
-    when 'いろはす'
-      @drinks_stock[:irohasu] += 1
-    end
+    @drinks_stock[drink.name.to_sym] += 1
   end
 
   def stock_list
@@ -31,9 +28,7 @@ class VendingMachine
   end
 
   def purchasable(drink)
-    if drink.name == 'ペプシ' && (@drinks_stock[:pepsi]).positive? ||
-       drink.name == 'モンスター' && (@drinks_stock[:monster]).positive? ||
-       drink.name == 'いろはす' && (@drinks_stock[:irohasu]).positive?
+    if @drinks_stock[drink.name.to_sym].positive?
       puts '購入できます'
     else
       puts '在庫がありません'
@@ -41,15 +36,15 @@ class VendingMachine
   end
 
   def purchase(drink)
-    if drink.name == 'ペプシ' && @suica.total >= drink.price && @drinks_stock[:pepsi] >= 0
+    if drink.name == 'ペプシ' && @suica.total >= drink.price && @drinks_stock[:pepsi] > 0
       @suica.payment(drink.price)
       @sales += drink.price
       @drinks_stock[:pepsi] -= 1
-    elsif  drink.name == 'モンスター' && @suica.total >= drink.price && @drinks_stock[:monster] >= 0
+    elsif  drink.name == 'モンスター' && @suica.total >= drink.price && @drinks_stock[:monster] > 0
       @suica.payment(drink.price)
       @sales += drink.price
       @drinks_stock[:monster] -= 1
-    elsif  drink.name == 'いろはす' && @suica.total >= drink.price && @drinks_stock[:irohasu] >= 0
+    elsif  drink.name == 'いろはす' && @suica.total >= drink.price && @drinks_stock[:irohasu] > 0
       @suica.payment(drink.price)
       @sales += drink.price
       @drinks_stock[:irohasu] -= 1
@@ -71,16 +66,22 @@ pepsi = Drink.new('ペプシ', 150)
 monster = Drink.new('モンスター', 230)
 irohasu = Drink.new('いろはす', 120)
 
-vending_machine = Vending_machine.new
+vending_machine = VendingMachine.new
 vending_machine.set_suica(suica)
+vending_machine.default_drink_stock
 
 # 在庫補充
-vending_machine.add_drink(pepsi)
-vending_machine.add_drink(monster)
-vending_machine.add_drink(irohasu)
+vending_machine.add_drink(:pepsi)
+vending_machine.add_drink(:monster)
+vending_machine.add_drink(:irohasu)
 
 # 在庫確認
 vending_machine.stock_list
+
+# 購入可否
+vending_machine.purchasable(:pepsi)
+vending_machine.purchasable(:monster)
+vending_machine.purchasable(:irohasu)
 
 # ドリンク購入
 vending_machine.purchase(pepsi)
