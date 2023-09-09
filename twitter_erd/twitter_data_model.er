@@ -1,0 +1,86 @@
+[users]
+  *id {label: "bigint, not null"}
+  full_name {label: "varchar, null, uniq"}
+  email {label: "varchar, not null, uniq"}
+  phone_number {label: "varchar, not null, uniq"}
+  nickname {label: "varchar, not null"}
+  self_introduction {label: "varchar, not null"}
+  location {label: "varchar, not null"}
+  website {label: "varchar, not null"}
+  date_of_birth {label: "date, not null"}
+  profile_image {label: "mediumblob, not null"}
+  avatar_image {label: "mediumblob, not null"}
+  created_at { label: "datetime, not null"}
+  updated_at { label: "datetime, not null"}
+
+[tweets]
+  *id {label: "bigint, not null"}
+  user_id {label: "bigint, not null, FK(users)"}
+  tweet_text {label: "varchar(140), not null"}
+  created_at { label: "datetime, not null"}
+  updated_at { label: "datetime, not null"}
+
+[likes]
+  *id {label: "bigint, not null"}
+  user_id {label: "bigint, not null, FK(users)"}
+  tweet_id {label: "bigint, not null, FK(tweets)"}
+  created_at { label: "datetime, not null"}
+  updated_at { label: "datetime, not null"}
+
+[retweets]
+  *id {label: "bigint, not null"}
+  user_id {label: "bigint, not null, FK(users)"}
+  tweet_id {label: "bigint, not null, FK(tweets)"}
+  created_at { label: "datetime, not null"}
+  updated_at { label: "datetime, not null"}
+
+[follows]
+  *id {label: "bigint, not null"}
+  follow_user_id {label: "bigint, not null, FK(users)"}
+  follower_user_id {label: "bigint, not null, FK(users)"}
+  created_at { label: "datetime, not null"}
+  updated_at { label: "datetime, not null"}
+
+[direct_messages]
+  *id {label: "bigint, not null"}
+  sender_user_id {label: "bigint, not null, FK(users)"}
+  receiver_user_id {label: "bigint, not null, FK(users)"}
+  message_text {label: "varchar, not null"}
+  created_at { label: "datetime, not null"}
+  updated_at { label: "datetime, not null"}
+
+[notifications]
+  *id {label: "bigint, not null"}
+  receiver_user_id {label: "bigint, not null, FK(users)"}
+  notification_type_id {label: "bigint, not null, FK(notification_types)"}
+  tweet_id {label: "bigint, null, FK(tweets)"}
+  created_at { label: "datetime, not null"}
+  updated_at { label: "datetime, not null"}
+
+[notification_types]
+  *id {label: "bigint, not null"}
+  notification_type {label: "varchar, not null"}
+
+[bookmarks]
+  *id {label: "bigint, not null"}
+  user_id {label: "bigint, not null, FK(users)"}
+  tweet_id {label: "bigint, not null, FK(tweets)"}
+  created_at { label: "datetime, not null"}
+  updated_at { label: "datetime, not null"}
+
+# Cardinality    Syntax
+# 0 or 1         ?
+# exactly 1      1
+# 0 or more      *
+# 1 or more      +
+users *--1 `tweets`
+users *--1 `likes`
+users *--1 `retweets`
+users *--1 `follows`
+users *--1 `direct_messages`
+users *--1 `notifications`
+users *--1 `bookmarks`
+tweets *--1 `likes`
+tweets *--1 `retweets`
+tweets *--1 `bookmarks`
+notifications *--1 `notification_types`
